@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Refer-A-Friend | TMGM</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy-dark: #0B1426;
+  --navy: #0F1E36;
+  --navy-light: #152A4A;
+  --blue-primary: #2563EB;
+  --blue-hover: #1D4ED8;
+  --blue-bright: #3B82F6;
+  --green: #22C55E;
+  --gold: #F59E0B;
+  --dark: #0F172A;
+  --grey-600: #475569;
+  --grey-500: #64748B;
+  --grey-400: #94A3B8;
+  --grey-300: #CBD5E1;
+  --grey-200: #E2E8F0;
+  --grey-100: #F1F5F9;
+  --grey-50: #F8FAFC;
+  --white: #FFFFFF;
+  --font: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font); color: var(--dark); line-height: 1.6; background: var(--white); }
+
+/* NAV */
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(11,20,38,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.06); height: 64px; display: flex; align-items: center; padding: 0 40px; }
+.nav-inner { max-width: 1200px; margin: 0 auto; width: 100%; display: flex; align-items: center; justify-content: space-between; }
+.nav-logo { font-size: 22px; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px; }
+.nav-logo span { display: block; font-size: 8px; font-weight: 600; letter-spacing: 3px; color: var(--grey-400); text-transform: uppercase; }
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.nav-signup { padding: 8px 20px; background: var(--blue-primary); color: white; border: none; border-radius: 8px; font-family: var(--font); font-size: 13px; font-weight: 700; cursor: pointer; text-decoration: none; }
+.nav-lang { font-size: 13px; color: var(--grey-400); font-weight: 600; }
+
+/* HERO */
+.hero { min-height: 580px; background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 40%, var(--navy-light) 100%); padding: 120px 40px 80px; position: relative; overflow: hidden; display: flex; align-items: center; }
+.hero::before { content: ''; position: absolute; top: -200px; right: -100px; width: 600px; height: 600px; background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%); border-radius: 50%; }
+.hero::after { content: ''; position: absolute; bottom: -100px; left: 20%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(34,197,94,0.05) 0%, transparent 70%); border-radius: 50%; }
+.hero-inner { max-width: 1200px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+.hero-text h1 { font-size: 44px; font-weight: 800; color: white; line-height: 1.15; margin-bottom: 16px; }
+.hero-text h1 .highlight { background: linear-gradient(90deg, var(--blue-bright), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero-text h2 { font-size: 17px; font-weight: 400; color: var(--grey-300); margin-bottom: 28px; line-height: 1.6; }
+.hero-cta { display: inline-flex; align-items: center; padding: 14px 36px; background: linear-gradient(135deg, var(--blue-primary), var(--blue-hover)); color: white; font-size: 16px; font-weight: 700; border-radius: 10px; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(37,99,235,0.3); }
+.hero-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.4); }
+.hero-tc { font-size: 12px; color: var(--grey-500); margin-top: 14px; }
+/* SECTIONS COMMON */
+.section { padding: 80px 40px; }
+.section-white { background: var(--white); }
+.section-light { background: var(--grey-50); }
+.section-dark { background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 50%, var(--navy-light) 100%); color: white; }
+.section-inner { max-width: 1200px; margin: 0 auto; }
+.section-title { font-size: 34px; font-weight: 800; color: var(--dark); text-align: center; margin-bottom: 8px; }
+.section-subtitle { font-size: 16px; color: var(--grey-600); text-align: center; margin-bottom: 48px; font-weight: 400; }
+
+/* HOW TO GET STARTED */
+.toggle-wrap { display: flex; justify-content: center; margin-bottom: 40px; }
+.toggle { display: flex; background: var(--grey-100); border-radius: 10px; padding: 4px; }
+.toggle-btn { padding: 10px 28px; border: none; border-radius: 8px; font-family: var(--font); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; background: transparent; color: var(--grey-500); }
+.toggle-btn.active { background: white; color: var(--blue-primary); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.steps { display: none; }
+.steps.active { display: block; }
+.steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; position: relative; margin-bottom: 32px; }
+.step-card { text-align: center; position: relative; }
+.step-num { width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg, var(--blue-primary), var(--blue-hover)); color: white; font-size: 24px; font-weight: 800; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+.step-title { font-size: 18px; font-weight: 700; color: var(--dark); margin-bottom: 8px; }
+.step-desc { font-size: 14px; color: var(--grey-600); line-height: 1.6; }
+.steps-cta-wrap { text-align: center; margin-top: 8px; }
+.steps-cta { display: inline-flex; padding: 14px 36px; background: linear-gradient(135deg, var(--blue-primary), var(--blue-hover)); color: white; font-size: 16px; font-weight: 700; border-radius: 10px; text-decoration: none; transition: transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(37,99,235,0.3); }
+.steps-cta:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.4); }
+.steps-tc { text-align: center; font-size: 12px; color: var(--grey-500); margin-top: 12px; }
+
+/* SHARING SECTION */
+.sharing-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+.sharing-text h2 { font-size: 28px; font-weight: 800; color: white; margin-bottom: 4px; }
+.sharing-text h2 .highlight { background: linear-gradient(90deg, var(--blue-bright), var(--green)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.sharing-text p { font-size: 15px; color: var(--grey-300); margin-bottom: 24px; line-height: 1.7; }
+.sharing-cta { display: inline-flex; padding: 12px 28px; background: linear-gradient(135deg, var(--blue-primary), var(--blue-hover)); color: white; font-size: 14px; font-weight: 700; border-radius: 10px; text-decoration: none; transition: transform 0.2s; }
+.sharing-cta:hover { transform: translateY(-2px); }
+.sharing-social { display: flex; gap: 12px; margin-top: 24px; }
+.social-icon { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; font-size: 16px; color: white; transition: background 0.2s; cursor: pointer; text-decoration: none; }
+.social-icon:hover { background: rgba(255,255,255,0.2); }
+.sharing-visual { display: flex; justify-content: center; align-items: center; }
+.sharing-mockup { width: 280px; height: 340px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 24px; display: flex; align-items: center; justify-content: center; color: var(--grey-400); font-size: 14px; font-weight: 600; }
+
+/* REWARD STRUCTURE */
+.reward-card-wrap { display: flex; justify-content: center; margin-bottom: 24px; }
+.reward-card { background: linear-gradient(135deg, #E8F0FE 0%, #D6E4FD 50%, #C3D5F9 100%); border-radius: 20px; padding: 40px 48px; text-align: center; max-width: 400px; width: 100%; position: relative; overflow: hidden; }
+.reward-card::before { content: ''; position: absolute; top: -30px; right: -30px; width: 120px; height: 120px; background: rgba(37,99,235,0.08); border-radius: 50%; }
+.reward-amount-big { font-size: 80px; font-weight: 800; background: linear-gradient(135deg, var(--blue-primary), var(--blue-hover)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; margin-bottom: 8px; }
+.reward-label { font-size: 13px; color: var(--blue-primary); font-weight: 600; margin-bottom: 4px; }
+.reward-amount-usd { font-size: 36px; font-weight: 800; color: var(--blue-primary); margin-bottom: 4px; }
+.reward-for { font-size: 13px; color: var(--grey-600); margin-bottom: 16px; }
+.reward-req { font-size: 14px; color: var(--dark); font-weight: 600; line-height: 1.8; }
+.reward-tc { text-align: center; font-size: 12px; color: var(--grey-500); margin-top: 20px; }
+
+/* FAQ */
+.faq-list { max-width: 800px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--grey-200); }
+.faq-question { display: flex; align-items: center; justify-content: space-between; padding: 20px 0; cursor: pointer; gap: 16px; }
+.faq-question h3 { font-size: 15px; font-weight: 600; color: var(--dark); }
+.faq-chevron { width: 20px; height: 20px; color: var(--grey-400); transition: transform 0.3s; flex-shrink: 0; }
+.faq-item.open .faq-chevron { transform: rotate(180deg); }
+.faq-answer { display: none; padding: 0 0 20px; font-size: 14px; color: var(--grey-600); line-height: 1.7; }
+.faq-item.open .faq-answer { display: block; }
+
+/* CTA BANNER */
+.cta-banner { padding: 60px 40px; background: linear-gradient(135deg, var(--blue-primary), var(--blue-hover)); text-align: center; }
+.cta-banner-inner { max-width: 600px; margin: 0 auto; }
+.cta-banner h2 { font-size: 28px; font-weight: 800; color: white; margin-bottom: 8px; }
+.cta-banner p { font-size: 15px; color: rgba(255,255,255,0.8); margin-bottom: 24px; }
+.cta-start { display: inline-flex; padding: 14px 36px; background: white; color: var(--blue-primary); font-size: 16px; font-weight: 700; border-radius: 10px; text-decoration: none; transition: transform 0.2s; }
+.cta-start:hover { transform: translateY(-2px); }
+.cta-demo { display: block; margin-top: 12px; font-size: 13px; color: rgba(255,255,255,0.7); text-decoration: underline; }
+
+/* FOOTER */
+.footer { background: var(--navy-dark); color: var(--grey-400); padding: 48px 40px 32px; }
+.footer-inner { max-width: 1200px; margin: 0 auto; }
+.footer-connect { text-align: center; margin-bottom: 32px; }
+.footer-connect h3 { font-size: 18px; font-weight: 700; color: white; margin-bottom: 16px; }
+.footer-social { display: flex; justify-content: center; gap: 12px; margin-bottom: 32px; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 32px; border-bottom: 1px solid rgba(255,255,255,0.06); margin-bottom: 32px; }
+.footer-col h4 { font-size: 13px; font-weight: 700; color: white; margin-bottom: 12px; }
+.footer-col a, .footer-col p { font-size: 12px; color: var(--grey-500); text-decoration: none; display: block; margin-bottom: 6px; line-height: 1.5; }
+.footer-col a:hover { color: var(--grey-300); }
+.footer-logo { font-size: 18px; font-weight: 800; color: white; margin-bottom: 4px; }
+.footer-logo span { display: block; font-size: 8px; font-weight: 600; letter-spacing: 2.5px; color: var(--grey-500); }
+
+/* DISCLAIMER */
+.disclaimer { background: var(--grey-50); padding: 40px; border-top: 1px solid var(--grey-200); }
+.disclaimer-inner { max-width: 1200px; margin: 0 auto; }
+.disclaimer-text { font-size: 11px; color: var(--grey-500); line-height: 1.7; margin-bottom: 24px; }
+.disclaimer-text strong { color: var(--grey-600); }
+.reg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.reg-entity h4 { font-size: 12px; font-weight: 700; color: var(--grey-700); margin-bottom: 4px; }
+.reg-entity p { font-size: 11px; color: var(--grey-500); line-height: 1.6; }
+
+/* CHANGE INDICATOR */
+.change-arrow {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 700; color: #F59E0B;
+  animation: pulse-arrow 2s ease-in-out infinite;
+  margin-right: 6px;
+}
+.change-arrow::before {
+  content: '👉';
+  font-size: 16px;
+}
+.change-label {
+  background: #FEF3C7; color: #B45309; padding: 3px 10px;
+  border-radius: 6px; font-size: 11px; font-weight: 700;
+  border: 1px solid #FDE68A;
+}
+@keyframes pulse-arrow {
+  0%, 100% { opacity: 1; transform: translateX(0); }
+  50% { opacity: 0.5; transform: translateX(4px); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-text h1 { font-size: 32px; }
+  .nav { padding: 0 20px; }
+  .section { padding: 60px 20px; }
+  .steps-grid { grid-template-columns: 1fr; gap: 24px; }
+  .sharing-inner { grid-template-columns: 1fr; }
+  .sharing-visual { display: none; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .reg-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">TMGM<span>Trade The World</span></a>
+    <div class="nav-right">
+      <a href="#" class="nav-signup">Sign Up</a>
+      <span class="nav-lang">EN</span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO BANNER -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <h1>Earn <span class="highlight">$50</span> by<br>Referring Friends!</h1>
+      <h2>Deposit, Trade, and both of you can earn $50</h2>
+      <a href="#steps" class="hero-cta">Refer Now</a>
+      <div class="hero-tc">*Terms and Conditions Apply</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO GET STARTED -->
+<section id="steps" class="section section-white">
+  <div class="section-inner">
+    <h2 class="section-title">How to Get Started?</h2>
+    <div class="toggle-wrap">
+      <div class="toggle">
+        <button class="toggle-btn active" onclick="switchSteps('new')">New User</button>
+        <button class="toggle-btn" onclick="switchSteps('existing')">Existing User</button>
+      </div>
+    </div>
+
+    <!-- NEW USER -->
+    <div id="steps-new" class="steps active">
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-title">Open Live Account</div>
+          <div class="step-desc">Create a Live Account with TMGM</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-title">Share Your Referral Link</div>
+          <div class="step-desc">Share your link to your friends via your Client Portal or QR code</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-title">Receive Your Rewards</div>
+          <div class="step-desc">Earn $50 for both you and your referred friend via the Client Portal</div>
+        </div>
+      </div>
+      <div class="steps-cta-wrap">
+        <a href="#" class="steps-cta">Join Now</a>
+      </div>
+    </div>
+
+    <!-- EXISTING USER -->
+    <div id="steps-existing" class="steps">
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-num">1</div>
+          <div class="step-title">Opt-In To The Promotion</div>
+          <div class="step-desc">Login to your TMGM Account and get your referral link; the first step towards passive income</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">2</div>
+          <div class="step-title">Start Referring Users</div>
+          <div class="step-desc">Share your link to your friends to start getting rewards.</div>
+        </div>
+        <div class="step-card">
+          <div class="step-num">3</div>
+          <div class="step-title">Get $50 Rewards</div>
+          <div class="step-desc">Once your referred friend completes their tasks, both you and your friend will receive rewards!</div>
+        </div>
+      </div>
+      <div class="steps-cta-wrap">
+        <a href="#" class="steps-cta">I Want to Refer Now</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WE JUST MADE SHARING TMGM EASY -->
+<section class="section section-dark">
+  <div class="sharing-inner">
+    <div class="sharing-text">
+      <h2>We Just Made<br><span class="highlight">Sharing TMGM Easy</span></h2>
+      <p>Use our One-Click Share feature to promote TMGM effortlessly across five social platforms. Copy, paste, or share trading toolkit with your referral code built in for hassle-free earning.</p>
+      <a href="#" class="sharing-cta">Start Sharing Now</a>
+      <div class="sharing-social">
+        <a href="#" class="social-icon">f</a>
+        <a href="#" class="social-icon">IG</a>
+        <a href="#" class="social-icon">▶</a>
+        <a href="#" class="social-icon">in</a>
+        <a href="#" class="social-icon">✉</a>
+      </div>
+    </div>
+    <div class="sharing-visual">
+      <div class="sharing-mockup">📱 Phone Mockup</div>
+    </div>
+  </div>
+</section>
+
+<!-- REWARD STRUCTURE -->
+<section class="section section-light">
+  <div class="section-inner">
+    <h2 class="section-title">Reward Structure</h2>
+    <p class="section-subtitle">Referees must successfully open a live account in order for both Referral and Referee to claim rewards</p>
+    <div class="reward-card-wrap">
+      <div class="reward-card">
+        <div class="reward-amount-big">50</div>
+        <div class="reward-label">Total Rewards</div>
+        <div class="reward-amount-usd">USD $50</div>
+        <div class="reward-for"><span class="change-arrow"><span class="change-label">UPDATED</span></span>You get $50. Your friend gets $50.*</div>
+        <div class="reward-req">
+          First Time Deposit: $100<br>
+          Trade 1 lot
+        </div>
+      </div>
+    </div>
+    <div class="reward-tc">*Terms and Conditions Apply</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section section-white">
+  <div class="section-inner">
+    <h2 class="section-title">Frequently Asked Questions</h2>
+    <p class="section-subtitle">Got any questions? Maybe they can be answered below!</p>
+    <div class="faq-list">
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3><span class="change-arrow"><span class="change-label">NEW</span></span>How do I earn my Refer-A-Friend reward?</h3>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="faq-answer">
+          To earn your $50 reward, your referred friend must complete the following within 90 days of setting up their Trading Account:<br><br>
+          1. Make a first-time deposit of at least USD $100<br>
+          2. Trade a minimum of 1 standard lot<br><br>
+          Once your friend completes both tasks, you each receive $50.<br><br>
+          <strong>Trading volume calculation:</strong><br>
+          • Forex and Metals: count at full lot value<br>
+          • Crude Oil, CFDs, and Cryptocurrency: count at 1/10 of lot value<br>
+          • Shares/Stocks: not eligible<br>
+          • Trades must be held for at least 2 minutes<br>
+          • Cents Account trading volume does not count<br><br>
+          *Terms and Conditions apply.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Who is eligible to participate in the Refer-A-Friend program?</h3>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="faq-answer">
+          1. This promotion is only open to registered users from SEA and ROW regions.<br>
+          (View all eligible countries in our Terms and Conditions)<br><br>
+          2. The referee must not have any existing account with TMGM.<br><br>
+          3. Both Referrer &amp; Referee are non-IB clients of TMGM.<br><br>
+          To participate, login into your TMGM Account and head over to the Refer-A-Friend Tab and Click on "Invite Friends". Once you have gathered your referral link / QR Code, you're ready to share it to your friends or through other methods like Social Media.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Can I refer friends who are already customers? How many friends can I refer?</h3>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="faq-answer">
+          No, you can't refer friends who are already TMGM customers as they will be considered invalid. However, you can refer to as many friends as you want, as long as they do not have a TMGM Account and are a non-IB client of TMGM.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>How do I know if my friend has signed up or completed the required actions?</h3>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="faq-answer">
+          Login into your account, find the Refer-A-Friend tab and click on "Invite Friend". Once inside, the details about the user who joined AND their status will be shown there!
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>What happens if two people refer to the same friend?</h3>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="faq-answer">
+          If two people refer to the same friend, that friend will have to choose which referral link / QR Code they want to use to sign-up with.<br><br>
+          Scenario 1: Referrer A &amp; Referrer B sends referral links to Friend C. Friend C decides they want to use Referrer A's referral link to complete their sign-up. Friend C will be under Referrer A.<br><br>
+          Scenario 2: Referrer A &amp; Referrer B sends referral links to Friend C. Friend C decides to click on Referrer A's link however decides to not proceed to sign up; they then click on Referrer B's link and continues sign up using their link. Friend C will then be under Referrer B instead.
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <h3>Can I instantly withdraw my rewards?</h3>
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </div>
+        <div class="faq-answer">
+          Yes, you can! You can instantly withdraw your rewards as soon as you receive them!
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GET STARTED CTA BANNER -->
+<section class="cta-banner">
+  <div class="cta-banner-inner">
+    <h2>Get Started!</h2>
+    <p>Sign up and access the Global Markets in less than 3 minutes!</p>
+    <a href="#" class="cta-start">Start Trading</a>
+    <a href="#" class="cta-demo">or Try Demo Account</a>
+  </div>
+</section>
+
+<!-- CONNECT WITH US + FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-connect">
+      <h3>Connect with Us</h3>
+      <div class="footer-social">
+        <a href="#" class="social-icon">f</a>
+        <a href="#" class="social-icon">IG</a>
+        <a href="#" class="social-icon">▶</a>
+        <a href="#" class="social-icon">in</a>
+        <a href="#" class="social-icon">𝕏</a>
+      </div>
+    </div>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">TMGM<span>Trade The World</span></div>
+        <p style="margin-top:12px;">
+          Phone: +61 2 8039 8365<br>
+          Fax: +61 2 8628 8388<br>
+          Email: support@tmgm.com<br>
+          Web: www.tmgm.com
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>CFD Products</h4>
+        <a href="#">Share Trading</a>
+        <a href="#">Forex</a>
+        <a href="#">Indices</a>
+        <a href="#">Energies</a>
+        <a href="#">Metals</a>
+        <a href="#">Crypto</a>
+        <a href="#">Forex CFD details</a>
+      </div>
+      <div class="footer-col">
+        <h4>Trading Tools</h4>
+        <a href="#">MT4 Download</a>
+        <a href="#">MT5 Download</a>
+        <a href="#">IRESS</a>
+        <a href="#">Trading Central</a>
+        <a href="#">Copy Trading</a>
+      </div>
+      <div class="footer-col">
+        <h4>Account</h4>
+        <a href="#">Open an Account</a>
+        <a href="#">Fund Account</a>
+        <a href="#">Deposit/Withdraw</a>
+        <a href="#">Trading Central</a>
+      </div>
+      <div class="footer-col">
+        <h4>TMGM</h4>
+        <a href="#">About Us</a>
+        <a href="#">Why TMGM</a>
+        <a href="#">Security</a>
+        <a href="#">Regulations</a>
+        <a href="#">Legal Documents</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- RISK DISCLAIMER -->
+<section class="disclaimer">
+  <div class="disclaimer-inner">
+    <div class="disclaimer-text">
+      <strong>Disclaimer:</strong> The information provided on this website is general in nature only and does not constitute personal financial advice. Before acting on any information on this website, you should consider the appropriateness of the information having regard to your objectives, financial situation and needs. Investing in CFDs and Margin FX Contracts carries significant risk and is not suitable for all investors. You may lose more than your initial deposit. You don't own, or have, any interest in the underlying assets. We recommend that you seek independent advice and ensure fully understand the risks involved before trading. It is important that you read and consider disclosure documents before you acquire any product listed on this website. The information and advertisements offered on this website are not intended for use by any person in any country or jurisdiction where such use is contrary to the local laws and regulations. Products and Services offered on this website are not intended for residents of the United States.
+    </div>
+    <div class="disclaimer-text"><strong>TMGM is licensed and regulated in various jurisdictions.</strong></div>
+    <div class="reg-grid">
+      <div class="reg-entity">
+        <h4>Trademax Australia Limited</h4>
+        <p>trading as TMGM, is regulated by the Australian Securities and Investments Commission (ASIC), AFSL no. 436416 and is located at Tower1, 520 Bourke Street, Melbourne, VIC 3000, Australia.<br>Email: support@tmgm.com.au</p>
+      </div>
+      <div class="reg-entity">
+        <h4>Trademax Global Limited</h4>
+        <p>trading as TMGM, is authorised and regulated by the Vanuatu Financial Services Commission (VFSC), registration number 40356 and is registered at 3rd Floor Bay View House, Les Highway, Port Vila, Vanuatu.<br>Email: support@tmgm.com</p>
+      </div>
+      <div class="reg-entity">
+        <h4>Trademax Global Markets (INT)</h4>
+        <p>trading as TMGM, is authorised and regulated by the Financial Services Authority (FSA) of Seychelles, with licence number SD078. Registered at Office B11, Providence Complex, Providence, Mahé, Seychelles.<br>Email: support@tmgm.com</p>
+      </div>
+      <div class="reg-entity">
+        <h4>Trademax Global Markets International</h4>
+        <p>Pty Ltd, trading as TMGM, is authorised and regulated by the Financial Services Commission (FSC) with licence no. GB21026703, registered at C/o AXIS Corp Solutions (Mauritius) Ltd, Level 2, Sir William Newton Street, Port Louis, Mauritius.<br>Email: support@tmgm.com</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function switchSteps(type) {
+  document.querySelectorAll('.steps').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('steps-' + type).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleFaq(el) {
+  const item = el.closest('.faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+</script>
+
+</body>
+</html>
